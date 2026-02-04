@@ -19,9 +19,9 @@ impl Default for NubisConfig {
     }
 }
 
-/// Request to create a new droplet
+/// Request to create a new VM
 #[derive(Debug, Clone, Serialize)]
-pub struct CreateDropletRequest {
+pub struct CreateVmRequest {
     pub project_id: String,
     pub name: String,
     pub size: String,
