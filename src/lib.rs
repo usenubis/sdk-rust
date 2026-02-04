@@ -13,17 +13,17 @@
 //!         std::env::var("NUBIS_API_KEY")?
 //!     );
 //!
-//!     // List all droplets in a project
-//!     let droplets = client
-//!         .droplets()
+//!     // List all VMs in a project
+//!     let vms = client
+//!         .vms()
 //!         .list("proj_01J5X...")
 //!         .await?;
 //!
-//!     // Create a new droplet
-//!     use nubis_sdk::types::CreateDropletRequest;
-//!     let droplet = client
-//!         .droplets()
-//!         .create(CreateDropletRequest {
+//!     // Create a new VM
+//!     use nubis_sdk::types::CreateVmRequest;
+//!     let vm = client
+//!         .vms()
+//!         .create(CreateVmRequest {
 //!             project_id: "proj_01J5X...".into(),
 //!             name: "api-server".into(),
 //!             size: "s-1vcpu-1gb".into(),
@@ -42,7 +42,7 @@
 //!         })
 //!         .await?;
 //!
-//!     println!("Created Droplet: {}", droplet.id);
+//!     println!("Created VM: {}", vm.id);
 //!     Ok(())
 //! }
 //! ```
@@ -60,33 +60,33 @@ use resources::*;
 
 /// Main Nubis SDK client with resource accessors
 impl NubisClient {
-    /// Access droplets (VMs) API
-    pub fn droplets(&self) -> Droplets {
-        Droplets::new(self)
+    /// Access VMs API
+    pub fn vms(&self) -> Vms<'_> {
+        Vms::new(self)
     }
 
     /// Access projects API
-    pub fn projects(&self) -> Projects {
+    pub fn projects(&self) -> Projects<'_> {
         Projects::new(self)
     }
 
     /// Access organizations API
-    pub fn orgs(&self) -> Orgs {
+    pub fn orgs(&self) -> Orgs<'_> {
         Orgs::new(self)
     }
 
     /// Access regions API
-    pub fn regions(&self) -> Regions {
+    pub fn regions(&self) -> Regions<'_> {
         Regions::new(self)
     }
 
     /// Access sizes API
-    pub fn sizes(&self) -> Sizes {
+    pub fn sizes(&self) -> Sizes<'_> {
         Sizes::new(self)
     }
 
     /// Access images API
-    pub fn images(&self) -> Images {
+    pub fn images(&self) -> Images<'_> {
         Images::new(self)
     }
 }

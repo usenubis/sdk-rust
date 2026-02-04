@@ -1,47 +1,47 @@
 use crate::client::NubisClient;
 use crate::error::Result;
-use crate::types::{CreateDropletRequest, Droplet};
+use crate::types::{CreateVmRequest, Vm};
 
-/// Droplets (VMs) resource API
-pub struct Droplets<'a> {
+/// VMs resource API
+pub struct Vms<'a> {
     client: &'a NubisClient,
 }
 
-impl<'a> Droplets<'a> {
+impl<'a> Vms<'a> {
     pub(crate) fn new(client: &'a NubisClient) -> Self {
         Self { client }
     }
 
-    /// List all droplets in a project
-    pub async fn list(&self, project_id: &str) -> Result<Vec<Droplet>> {
+    /// List all VMs in a project
+    pub async fn list(&self, project_id: &str) -> Result<Vec<Vm>> {
         let response: serde_json::Value = self
             .client
             .get(&format!("/api/v1/projects/{}/vms", project_id))
             .await?;
 
-        // Handle both { droplets: [...] } and [...] formats
-        if let Some(droplets) = response.get("droplets").and_then(|v| v.as_array()) {
+        // Handle both { vms: [...] } and [...] formats
+        if let Some(vms) = response.get("vms").and_then(|v| v.as_array()) {
             Ok(serde_json::from_value(serde_json::Value::Array(
-                droplets.clone(),
+                vms.clone(),
             ))?)
-        } else if let Some(droplets) = response.as_array() {
+        } else if let Some(vms) = response.as_array() {
             Ok(serde_json::from_value(serde_json::Value::Array(
-                droplets.clone(),
+                vms.clone(),
             ))?)
         } else {
             Ok(vec![])
         }
     }
 
-    /// Get a specific droplet by ID
-    pub async fn get(&self, project_id: &str, droplet_id: &str) -> Result<Droplet> {
+    /// Get a specific VM by ID
+    pub async fn get(&self, project_id: &str, vm_id: &str) -> Result<Vm> {
         self.client
-            .get(&format!("/api/v1/projects/{}/vms/{}", project_id, droplet_id))
+            .get(&format!("/api/v1/projects/{}/vms/{}", project_id, vm_id))
             .await
     }
 
-    /// Create a new droplet
-    pub async fn create(&self, request: CreateDropletRequest) -> Result<Droplet> {
+    /// Create a new VM
+    pub async fn create(&self, request: CreateVmRequest) -> Result<Vm> {
         let project_id = request.project_id.clone();
         let payload = serde_json::json!({
             "name": request.name,
@@ -65,63 +65,63 @@ impl<'a> Droplets<'a> {
             .await
     }
 
-    /// Delete a droplet
-    pub async fn delete(&self, project_id: &str, droplet_id: &str) -> Result<()> {
+    /// Delete a VM
+    pub async fn delete(&self, project_id: &str, vm_id: &str) -> Result<()> {
         self.client
             .delete::<serde_json::Value>(&format!(
                 "/api/v1/projects/{}/vms/{}",
-                project_id, droplet_id
+                project_id, vm_id
             ))
             .await?;
         Ok(())
     }
 
-    /// Start a droplet
-    pub async fn start(&self, project_id: &str, droplet_id: &str) -> Result<Droplet> {
+    /// Start a VM
+    pub async fn start(&self, project_id: &str, vm_id: &str) -> Result<Vm> {
         self.client
             .post(
-                &format!("/api/v1/projects/{}/vms/{}/start", project_id, droplet_id),
+                &format!("/api/v1/projects/{}/vms/{}/start", project_id, vm_id),
                 &serde_json::json!({}),
             )
             .await
     }
 
-    /// Stop a droplet
-    pub async fn stop(&self, project_id: &str, droplet_id: &str) -> Result<Droplet> {
+    /// Stop a VM
+    pub async fn stop(&self, project_id: &str, vm_id: &str) -> Result<Vm> {
         self.client
             .post(
-                &format!("/api/v1/projects/{}/vms/{}/stop", project_id, droplet_id),
+                &format!("/api/v1/projects/{}/vms/{}/stop", project_id, vm_id),
                 &serde_json::json!({}),
             )
             .await
     }
 
-    /// Reboot a droplet
-    pub async fn reboot(&self, project_id: &str, droplet_id: &str) -> Result<Droplet> {
+    /// Reboot a VM
+    pub async fn reboot(&self, project_id: &str, vm_id: &str) -> Result<Vm> {
         self.client
             .post(
-                &format!("/api/v1/projects/{}/vms/{}/reboot", project_id, droplet_id),
+                &format!("/api/v1/projects/{}/vms/{}/reboot", project_id, vm_id),
                 &serde_json::json!({}),
             )
             .await
     }
 
-    /// Resize a droplet
-    pub async fn resize(&self, project_id: &str, droplet_id: &str, size: &str) -> Result<Droplet> {
+    /// Resize a VM
+    pub async fn resize(&self, project_id: &str, vm_id: &str, size: &str) -> Result<Vm> {
         self.client
             .post(
-                &format!("/api/v1/projects/{}/vms/{}/resize", project_id, droplet_id),
+                &format!("/api/v1/projects/{}/vms/{}/resize", project_id, vm_id),
                 &serde_json::json!({ "size": size }),
             )
             .await
     }
 
-    /// Get droplet metrics
-    pub async fn metrics(&self, project_id: &str, droplet_id: &str) -> Result<serde_json::Value> {
+    /// Get VM metrics
+    pub async fn metrics(&self, project_id: &str, vm_id: &str) -> Result<serde_json::Value> {
         self.client
             .get(&format!(
                 "/api/v1/projects/{}/vms/{}/metrics",
-                project_id, droplet_id
+                project_id, vm_id
             ))
             .await
     }

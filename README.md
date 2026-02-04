@@ -16,7 +16,7 @@ tokio = { version = "1", features = ["full"] }
 
 ```rust
 use nubis_sdk::NubisClient;
-use nubis_sdk::types::CreateDropletRequest;
+use nubis_sdk::types::CreateVmRequest;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -24,16 +24,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         std::env::var("NUBIS_API_KEY")?
     );
 
-    // List all droplets in a project
-    let droplets = client
-        .droplets()
+    // List all VMs in a project
+    let vms = client
+        .vms()
         .list("proj_01J5X...")
         .await?;
 
-    // Create a new droplet
-    let droplet = client
-        .droplets()
-        .create(CreateDropletRequest {
+    // Create a new VM
+    let vm = client
+        .vms()
+        .create(CreateVmRequest {
             project_id: "proj_01J5X...".into(),
             name: "api-server".into(),
             size: "s-1vcpu-1gb".into(),
@@ -52,7 +52,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         })
         .await?;
 
-    println!("Created Droplet: {}", droplet.id);
+    println!("Created VM: {}", vm.id);
     Ok(())
 }
 ```
@@ -61,7 +61,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ### Resources
 
-- `droplets()` - Manage virtual machines (droplets)
+- `vms()` - Manage virtual machines
 - `projects()` - Manage projects
 - `orgs()` - Manage organizations
 - `regions()` - List available regions

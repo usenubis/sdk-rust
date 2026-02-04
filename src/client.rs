@@ -1,6 +1,6 @@
 use crate::error::{NubisError, Result};
 use crate::types::NubisConfig;
-use reqwest::{Client, Response, StatusCode};
+use reqwest::{Client, Response};
 use std::time::Duration;
 
 /// Main Nubis SDK client
@@ -20,7 +20,7 @@ impl NubisClient {
 
     /// Create a new Nubis client with custom configuration
     pub fn with_config(config: NubisConfig) -> Self {
-        let mut client_builder = Client::builder()
+        let client_builder = Client::builder()
             .timeout(config.timeout.unwrap_or(Duration::from_secs(30)))
             .default_headers({
                 let mut headers = reqwest::header::HeaderMap::new();

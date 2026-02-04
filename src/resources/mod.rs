@@ -1,11 +1,11 @@
-pub mod droplets;
+pub mod vms;
 pub mod images;
 pub mod orgs;
 pub mod projects;
 pub mod regions;
 pub mod sizes;
 
-pub use droplets::Droplets;
+pub use vms::Vms;
 pub use images::Images;
 pub use orgs::Orgs;
 pub use projects::Projects;

@@ -13,7 +13,7 @@ impl Default for NubisConfig {
     fn default() -> Self {
         Self {
             api_key: String::new(),
-            base_url: "https://api.nubis.cloud".to_string(),
+            base_url: "https://api.usenubis.com".to_string(),
             timeout: Some(std::time::Duration::from_secs(30)),
         }
     }
@@ -49,9 +49,9 @@ pub struct CreateDropletRequest {
     pub ssh_allowed_cidrs: Vec<String>,
 }
 
-/// Droplet (VM) representation
+/// VM representation
 #[derive(Debug, Clone, Deserialize)]
-pub struct Droplet {
+pub struct Vm {
     pub id: String,
     pub name: String,
     pub status: String,
