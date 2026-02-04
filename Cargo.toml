@@ -1,0 +1,21 @@
+[package]
+name = "nubis-sdk"
+version = "1.0.0"
+edition = "2021"
+authors = ["Nubis Team"]
+license = "MIT"
+description = "Official Nubis SDK for Rust"
+repository = "https://github.com/nubis-cloud/sdk-rust"
+documentation = "https://docs.rs/nubis-sdk"
+keywords = ["nubis", "cloud", "infrastructure", "sdk", "api"]
+categories = ["api-bindings", "web-programming"]
+
+[dependencies]
+reqwest = { version = "0.11", default-features = false, features = ["json", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "1"
+url = "2.5"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["full"] }
