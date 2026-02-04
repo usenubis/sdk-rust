@@ -1,11 +1,11 @@
 [package]
 name = "nubis-sdk"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 authors = ["Nubis Team"]
 license = "MIT"
 description = "Official Nubis SDK for Rust"
-repository = "https://github.com/nubis-cloud/sdk-rust"
+repository = "https://github.com/usenubis/sdk-rust"
 documentation = "https://docs.rs/nubis-sdk"
 keywords = ["nubis", "cloud", "infrastructure", "sdk", "api"]
 categories = ["api-bindings", "web-programming"]
@@ -19,3 +19,5 @@ url = "2.5"
 
 [dev-dependencies]
 tokio = { version = "1", features = ["full"] }
+
+[workspace]
