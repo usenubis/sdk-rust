@@ -1,6 +1,6 @@
 [package]
 name = "nubis-sdk"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2021"
 authors = ["Nubis Team"]
 license = "MIT"

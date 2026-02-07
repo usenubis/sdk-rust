@@ -57,9 +57,30 @@ pub struct Vm {
     pub status: String,
     pub size: String,
     pub region: String,
+    pub project_id: String,
+    pub org_id: String,
+    pub provider: String,
     pub image: String,
     #[serde(default)]
+    pub public_ip: Option<String>,
+    #[serde(default)]
+    pub private_ip: Option<String>,
+    #[serde(default)]
     pub created_at: String,
+    #[serde(default)]
+    pub started_at: Option<String>,
+    #[serde(default)]
+    pub last_error: Option<String>,
+    // Provider ID
+    pub provider_id: Option<String>,
+    // DigitalOcean specific
+    pub do_droplet_id: Option<i64>,
+    pub do_vpc_uuid: Option<String>,
+    pub do_tags: Option<Vec<String>>,
+    // Pricing
+    pub raw_base_price_hourly: Option<f64>,
+    pub nubis_final_price_hourly: Option<f64>,
+    pub hourly_cost: Option<f64>,
     #[serde(flatten)]
     pub extra: HashMap<String, serde_json::Value>,
 }
