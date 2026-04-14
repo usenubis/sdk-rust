@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //! Official Nubis SDK for Rust
 //!
 //! This SDK provides a type-safe interface to the Nubis API.
@@ -90,3 +91,11 @@ impl NubisClient {
         Images::new(self)
     }
 }
+=======
+mod error;
+pub mod generated;
+mod http;
+
+pub use crate::error::NubisError;
+pub use crate::http::{NubisClient, NubisClientBuilder};
+>>>>>>> 0af0069 (Initial import)
